@@ -1,0 +1,83 @@
+{#
+Renders Bokeh models into a basic .html file.
+
+:param title: value for ``<title>`` tags
+:type title: str
+
+:param plot_resources: typically the output of RESOURCES
+:type plot_resources: str
+
+:param plot_script: typically the output of PLOT_SCRIPT
+:type plot_script: str
+
+:param plot_div: typically the output of PLOT_DIV
+:type plot_div: str
+
+Users can customize the file output by providing their own Jinja2 template
+that accepts these same parameters.
+
+#}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title }}</title>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" type="text/css" />
+        {{ bokeh_css }}
+        {{ bokeh_js }}
+        <style>
+          html {
+            width: 100%;
+            height: 100%;
+          }
+          body {
+            width: 90%;
+            height: 100%;
+            margin: auto;
+          }
+	  .subreddit-map {
+	    max-width:800px;
+	    margin:auto;
+	  }
+	  .content {
+	    max-width:720px;
+	    margin:auto;
+	    padding:10px;
+	    font-family: sans-serif;
+	    font-size: 14px;
+	  }
+        </style>
+    </head>
+    <body>
+        <div class=subreddit-map>
+        {{ plot_div|indent(8) }}
+        {{ plot_script|indent(8) }}
+	</div>
+	<div class=content>
+	  <p>This is a map of the top 10,000 subreddits on reddit. Hovering
+	    over points will display the name of the subreddit it represents.
+	    Please be aware that you may find subreddit names objectionable;
+	    avoid mousing over the large upper cluster if you wish to avoid
+	    most of the objectionably named subreddits.
+
+	  <p>Use the mouse wheel or box zoom tool (from the upper left of
+	    the plot) to zoom in, and drag to pan.</p>
+	    
+	  <p>You can enter the name of a subreddit, or a cluster number,
+	    in the apporpriate box to have it highlighted on the map. To
+	    clear such highlighting just enter an empty name or number and
+	    press enter.</p>
+
+	  <p>The interactive plot is provided by <a href="http://bokeh.pydata.org/en/latest/">bokeh</a>, and
+	    was built in Python using a number of libraries including, but
+	    not limited to <a href="http://pandas.pydata.org/">pandas</a>,  <a href="http://scikit-learn.org/stable/">scikit-learn</a>,
+	    <a href="https://github.com/lferry007/LargeVis">LargeVis</a>, and <a href="https://github.com/scikit-learn-contrib/hdbscan">hdbscan</a>. Many thanks
+	    go to the authors of those projects.</p>
+
+	  <p>An example notebook of an analysis of subreddits based on the
+	    same techniques used here is available <a href="http://nbviewer.jupyter.org/github/lmcinnes/subreddit_mapping/blob/master/Subreddit%20Mapping%20and%20Analysis.ipynb">here</a>.
+	    Code and documentation to generate this plot, and to perform
+	    similar analyses is available <a href="https://github.com/lmcinnes/subreddit_mapping">on github</a>.
+	</div>
+    </body>
+</html>
