@@ -6,6 +6,8 @@ To acquire the base data either run the queries from ``BigQuery_queries.sql`` in
 
 Once you have the data you can run any of the jupyter notebooks here, although several libraries may be required.
 
+**The primary notebook is ``Subreddit Mapping and Analysis.ipynb``.** Other notebooks provide supplementary material on alternative approaches that were tried.
+
 ### Required libraries and binaries
 
 You will likely need:
